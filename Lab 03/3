@@ -1,0 +1,108 @@
+text=(
+'\n1 Add a number to the list\n'
+'2 Remove a number from the list\n'
+'3 Insert a number at a specific position\n'
+'4 Pop a number from the list\n'
+'5 Find the sum, average, and maximum of the list\n'
+'6 Search for a number in the list\n'
+'7 Remove all odd numbers from the list\n'
+'8 Exit\n'
+'Select a number option:\n')
+
+input_number=int(input(text))
+
+the_list=[]
+
+
+while input_number<=0 or input_number>=9:
+    print('\nPlease select a vaild number\n')
+    input_number=int(input(text))
+    
+while input_number>=1 or input_number<=8:
+    if input_number==1:
+        append=(float(input('What number would you want to add to the list:\n')))
+        the_list.append(append)
+        ask=input('Would you want to see the new list? (yes /no):\n')
+        if ask=="yes":
+            print(the_list)
+            input_number=int(input(text))
+        elif ask=="no":
+            input_number=int(input(text))
+    elif input_number==2:
+        remove=(float(input('What number would you want to remove to the list:\n')))
+        if remove in the_list:
+            the_list.remove(remove)
+        else:
+            print('Error: number is not in the list\n')
+        ask=input('Would you want to see the new list? (yes /no):\n')
+        if ask=="yes":
+            print(the_list)
+            input_number=int(input(text))
+        elif ask=="no":
+             input_number=int(input(text))
+
+    elif input_number==3:
+        number=float(input('what number would you want to add into the list:\n'))
+        index=int(input('In what number postion do you want to the add the number:\n '))
+        if index<=len(the_list):
+            new_index=index-1
+            the_list.insert(new_index, number) 
+            ask=input('Would you want to see the new list? (yes /no):\n')
+            if ask=="yes":
+                print(the_list)
+                input_number=int(input(text))
+            elif ask=="no":
+                 input_number=int(input(text))
+        else:
+            print('Error: can not add number in that spot \n')
+        ask=input('Would you want to see the new list? (yes /no):\n')
+        if ask=="yes":
+            print(the_list)
+            input_number=int(input(text))
+        elif ask=="no":
+             input_number=int(input(text))
+    elif input_number==4:
+        index=int(input('What postion would you want to remove from the list:\n '))
+        if index<=len(the_list):
+            new_index=index-1
+            the_list.pop(new_index) 
+            ask=input('Would you want to see the new list? (yes /no):\n')
+            if ask=="yes":
+                print(the_list)
+                input_number=int(input(text))
+            elif ask=="no":
+                 input_number=int(input(text))
+        else:
+            print('Error: can not remove number from that spot \n')
+        ask=input('Would you want to see the new list? (yes /no):\n')
+        if ask=="yes":
+            print(the_list)
+            input_number=int(input(text))
+        elif ask=="no":
+             input_number=int(input(text))
+    elif input_number==5:
+        if len(the_list)>0:
+            print('The sum of the list is', sum(the_list))
+            print('The average of the list is', (sum(the_list)/len(the_list)))
+            print('The maximum vaule of the list is', max(the_list))
+            input_number=int(input(text))
+        else:
+            print('Error: can not calcutlate due to no vaules in the list \n')
+            input_number=int(input(text))
+    elif input_number==6:
+        number=float(input('what number are you searching for in the list\n '))
+        if number in the_list:
+            index=the_list.index(number)
+            print(f'The number {number} is in the poation {index+1}')
+            input_number=int(input(text))
+        else:
+            print('Error: Number is not in the list')
+            input_number=int(input(text))
+    elif input_number==7:
+        the_list=[num for num in the_list if num%2==0]
+        print('All odd numbers removed from list')
+        input_number=int(input(text))
+    elif input_number==8:
+        print( 'Good Bye. Exiting the program')
+        break
+    

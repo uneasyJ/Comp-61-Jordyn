@@ -1,0 +1,38 @@
+new_blance = 1000.00
+
+line=(('Please select a number from the following menu\n'
+'1.Check Balance\n'
+'2.Deposit Money\n'
+'3.Withdraw Money\n'
+'4.Exit\n'))
+
+input_number=int(input(line))
+
+while(input_number<=0 or input_number>=5):
+    print( '\nInvaild input, Lets try again \n')
+    input_number=int(input(line))
+    
+
+while input_number <=4:
+    if (input_number==3):
+        withdraw=float(input('\nWhat amount is being withdrawn: \n'))
+        if (withdraw>new_blance):
+            print('Insufficient funds\n')
+            input_number=int(input(line))
+        elif (withdraw<=new_blance):
+            new_blance-=withdraw
+            print('Withdrawal successful! Your new balance is: $',new_blance,
+            '\n')
+            input_number=int(input(line))
+    elif(input_number==2):
+        deposit=float(input('\nWhat amount is being deposited: \n'))
+        new_blance=new_blance+deposit
+        print('Deposit successful! Your new balance is: $',new_blance,
+    '\n')
+        input_number=int(input(line))
+    elif(input_number==1):
+        print("Your current balance is: $"+ str(new_blance),'\n')
+        input_number=int(input(line))
+    elif(input_number==4):
+        print ('Thank you for using the ATM. Goodbye!')
+        break   
