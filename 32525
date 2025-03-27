@@ -1,0 +1,101 @@
+# line=''
+
+# for i in range(5):
+#     for j in range (5):
+#         line += str(i )+str(j)
+#     print(line)
+#     line=''
+
+# a_list=[0,1,2,3,4]
+# print(a_list)
+# a_list[2]=10
+# print(a_list[2])
+
+
+# a_list=[0,1,2,3,4]
+# two_d_list=[[0,1,2,3,4],
+#             [5,6,7,8,9],
+#             [10,11,12,13,14],
+# ]
+
+# print(two_d_list)
+# print(two_d_list[1]) #this one selects the list you want
+
+# print(two_d_list[1][1]) 
+#this one selects the list then it selects the elemt in the list
+
+
+# two_d_list=[]
+# line=[]
+
+# for i in range(3):
+#     for j in range (3):
+#         line.append (str(i)+str(j)+ " ")
+#     two_d_list.append (line)
+#     line=[]
+
+# print(two_d_list)
+
+# print_line=""
+# for i in range(3):
+#     for j in range (3):
+#         print_line+=two_d_list[i][j]
+#     print(print_line)
+#     print_line=""
+
+
+import random
+num= random.randint(0,1)
+
+
+two_d_list=[]
+line=[]
+
+for i in range(3):
+    for j in range (3):
+         line.append (str(num)+ " ")
+         num= random.randint(0,1)
+    two_d_list.append (line)
+    line=[]
+
+print_line=""
+for i in range(3):
+    for j in range (3):
+        print_line+=two_d_list[i][j]
+    print(print_line)
+    print_line=""
+
+showtwo_d_list=[]
+showline=[]
+
+for i in range(3):
+    for j in range (3):
+         showline.append (str("*")+ " ")
+    showtwo_d_list.append ( showline)
+    showline=[]
+    
+showprint_line=""
+for i in range(3):
+    for j in range (3):
+        showprint_line+=showtwo_d_list[i][j]
+    print(showprint_line)
+    showprint_line=""
+
+input_x= int(input('input you x postion'))
+input_y= int(input('input you y postion'))
+
+if two_d_list[input_x][input_y]==1:
+    showtwo_d_list[input_x][input_y]="X"
+    print('you lose')
+    
+else:
+    print(' kepp going')
+    showtwo_d_list[input_x][input_y]="_ "
+    
+
+showprint_line=""
+for i in range(3):
+    for j in range (3):
+        showprint_line+=showtwo_d_list[i][j]
+    print(showprint_line)
+    showprint_line=""
