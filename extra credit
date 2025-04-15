@@ -1,0 +1,129 @@
+import pygame
+import random
+
+
+pygame.init()
+
+
+WIDTH, HEIGHT = 800, 400
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Endless Runner")
+
+
+clock = pygame.time.Clock()
+font = pygame.font.SysFont(None, 36)
+
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+
+def draw_text(text, x, y, center=False):
+    img = font.render(text, True, BLACK)
+    if center:
+        rect = img.get_rect(center=(x, y))
+        screen.blit(img, rect)
+    else:
+        screen.blit(img, (x, y))
+
+def create_obstacle():
+    x = WIDTH + random.randint(200, 1000)
+    height = random.choice([20, 40, 60])
+    return pygame.Rect(x, HEIGHT - height, 30, height)
+
+def reset_game():
+    return {
+        "player": pygame.Rect(100, 300, 50, 50),
+        "player_y_velocity": 0,
+        "is_jumping": False,
+        "obstacles": [],
+        "score": 0,
+        "start_ticks": pygame.time.get_ticks(),
+        "running": True
+    }
+
+def game_loop():
+    game = reset_game()
+
+    while game["running"]:
+        screen.fill(WHITE)
+
+        seconds = (pygame.time.get_ticks() - game["start_ticks"]) / 1000
+        draw_text(f"Time: {int(seconds)}s", 10, 10)
+        draw_text(f"Score: {game['score']}", 10, 40)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE] and not game["is_jumping"]:
+            game["player_y_velocity"] = -15
+            game["is_jumping"] = True
+
+
+        game["player_y_velocity"] += 1
+        game["player"].y += game["player_y_velocity"]
+
+        if game["player"].bottom >= HEIGHT:
+            game["player"].bottom = HEIGHT
+            game["is_jumping"] = False
+
+
+        if len(game["obstacles"]) == 0 or game["obstacles"][-1].x < WIDTH - 300:
+            game["obstacles"].append(create_obstacle())
+
+        for obs in list(game["obstacles"]):
+            obs.x -= 5
+            if obs.right < 0:
+                game["obstacles"].remove(obs)
+                game["score"] += 1
+            if game["player"].colliderect(obs):
+                draw_text("Game Over!", WIDTH // 2, HEIGHT // 2 - 20, center=True)
+                draw_text("Press 'R' Button to Restart or ESC to Quit", WIDTH // 2, HEIGHT // 2 + 20, center=True)
+                pygame.display.flip()
+                return show_restart_menu()
+
+        pygame.draw.rect(screen, BLACK, game["player"])
+        for obs in game["obstacles"]:
+            pygame.draw.rect(screen, RED, obs)
+
+        pygame.display.flip()
+        clock.tick(60)
+
+    return True
+
+def show_start_menu():
+    while True:
+        screen.fill(WHITE)
+        draw_text("Endless Runner", WIDTH // 2, HEIGHT // 2 - 40, center=True)
+        draw_text("Press 'R' Button to Start", WIDTH // 2, HEIGHT // 2 + 10, center=True)
+        draw_text("Press ESC to Quit", WIDTH // 2, HEIGHT // 2 + 40, center=True)
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_r]:
+                return True
+            elif keys[pygame.K_ESCAPE]:
+                return False
+
+def show_restart_menu():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_r]:
+            return True
+        elif keys[pygame.K_ESCAPE]:
+            return False
+
+
+if show_start_menu():
+    while game_loop():
+        pass
+
+pygame.quit()
