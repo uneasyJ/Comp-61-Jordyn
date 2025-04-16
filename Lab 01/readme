@@ -1,7 +1,7 @@
 This is a simple game. You have to press the "R" button to start and restart the game. You then have to press the space
 Button to jump over the red rectangles 
 
-
-
 GamePlay
 https://youtu.be/_Qy1Dsazyf8 
+
+I wanted to create a simple and classic game. I told chatGPT to help me create a game like google internet game. I used to play those games when I was in middle school. I typed all the code and it was asked questions to clarify questions I had. I noticed how the IF statements were being used, I also noticed that functions the majority use the return function. I think this is important because it allows for a function to recall a value. The game is a simple game. You are a little black box that is jumping over red squares. One thing I had to change was the red box height since it was very difficult to pass, especially the ones that were 80. To play it is very simple you have to press the space button for you to jump over the red boxes. If you touch them then you will see a restart menu. If you want to continue you will have to press the R button. This is something new I learned. Every key has its own command. If you want to exit the game you will have to press esc button. 
